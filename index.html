@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon BookHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Артқы фондағы жарқыраған неон шеңберлер -->
+    <div class="glow-circle circle-1"></div>
+    <div class="glow-circle circle-2"></div>
+    <div class="glow-circle circle-3"></div>
+
+    <header>
+        <h1><i class="fas fa-book-open" style="color: #00f5d4;"></i> Neon BookHub</h1>
+    </header>
+
+    <!-- 1. ТРЕКЕР (Кітап сөресі) -->
+    <div id="tracker-tab" class="tab-content active">
+        <div class="add-section glass">
+            <h3><i class="fas fa-plus-circle"></i> Жаңа кітап қосу</h3>
+            <div class="input-group">
+                <input type="text" id="book-title" placeholder="Кітап атауы (мысалы: Абай жолы)">
+                <input type="number" id="total-pages" placeholder="Бет саны" min="1">
+                <button onclick="addBook()" class="neon-btn pink"><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+        <div class="books-grid" id="book-list"></div>
+    </div>
+
+    <!-- 2. КЛУБ (ЧАТ) -->
+    <div id="chat-tab" class="tab-content">
+        <div class="chat-container glass">
+            <div class="chat-header">
+                <select id="chat-room" onchange="switchRoom()">
+                    <option value="general">💬 Жалпы әңгіме</option>
+                    <option value="fiction">🚀 Фантастика</option>
+                    <option value="detective">🕵️ Детектив</option>
+                    <option value="kazakh">🇰🇿 Қазақ әдебиеті</option>
+                </select>
+            </div>
+            <div class="chat-box" id="chat-box"></div>
+            <div class="chat-input">
+                <input type="text" id="chat-message" placeholder="Хабарлама жазыңыз..." onkeypress="if(event.key === 'Enter') sendMessage()">
+                <button onclick="sendMessage()" class="neon-btn cyan"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. АЛМАСУ (МАРКЕТ) -->
+    <div id="market-tab" class="tab-content">
+        <div class="market-header glass">
+            <h3><i class="fas fa-store"></i> Кітап алмасу алаңы</h3>
+            <p>Үйдегі оқылған кітаптарды сатыңыз немесе айырбастаңыз!</p>
+        </div>
+        
+        <div class="add-section glass">
+            <h4><i class="fas fa-bullhorn"></i> Өз кітабыңызды жарнамалау</h4>
+            <div class="input-group">
+                <input type="text" id="market-title" placeholder="Кітап атауы">
+                <input type="text" id="market-price" placeholder="Бағасы (мысалы: 1500 тг немесе Айырбастау)">
+                <button onclick="addMarketItem()" class="neon-btn purple"><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+        <div class="market-grid" id="market-list"></div>
+    </div>
+
+    <!-- 4. ПРОФИЛЬ -->
+    <div id="profile-tab" class="tab-content">
+        <div class="profile-card glass">
+            <div class="avatar"><i class="fas fa-user-astronaut"></i></div>
+            <h3>Кітап сүйер қауым</h3>
+            <p style="margin-top: 10px;">Жалпы оқылған бет: <span id="total-pages-read">0</span></p>
+            <div class="badges" id="badges-container"></div>
+        </div>
+    </div>
+
+    <!-- Төменгі Навигация -->
+    <nav class="bottom-nav glass">
+        <button class="nav-btn active" onclick="openTab('tracker-tab', this)">
+            <i class="fas fa-book"></i><span>Сөре</span>
+        </button>
+        <button class="nav-btn" onclick="openTab('chat-tab', this)">
+            <i class="fas fa-comments"></i><span>Клуб</span>
+        </button>
+        <button class="nav-btn" onclick="openTab('market-tab', this)">
+            <i class="fas fa-store"></i><span>Алмасу</span>
+        </button>
+        <button class="nav-btn" onclick="openTab('profile-tab', this)">
+            <i class="fas fa-user"></i><span>Профиль</span>
+        </button>
+    </nav>
+
+    <!-- Модаль (Прогресс жаңарту терезесі) -->
+    <div class="modal" id="reading-modal">
+        <div class="modal-content glass">
+            <h2 id="modal-title"></h2>
+            <p id="modal-progress"></p>
+            <input type="number" id="pages-read-input" placeholder="Оқыған бетіңізді енгізіңіз" min="0">
+            <div class="modal-buttons">
+                <button onclick="saveProgress()" class="neon-btn cyan" style="flex:1;">Сақтау</button>
+                <button onclick="closeModal()" class="neon-btn pink" style="flex:1;">Жабу</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
