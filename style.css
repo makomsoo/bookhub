@@ -1,0 +1,145 @@
+/* ===== НЕГІЗГІ БАПТАУЛАР ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+body {
+    background-color: #0a0a0f; /* Терең қараңғы фон */
+    color: #ffffff;
+    min-height: 100vh;
+    padding-bottom: 90px;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ===== АРТҚЫ ФОНДАҒЫ НЕОН ШЕҢБЕРЛЕР ===== */
+.glow-circle { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.6; }
+.circle-1 { width: 350px; height: 350px; background: #9d4edd; top: -50px; left: -100px; animation: pulse 5s infinite alternate; }
+.circle-2 { width: 400px; height: 400px; background: #ff006e; bottom: -100px; right: -150px; animation: pulse 7s infinite alternate-reverse; }
+.circle-3 { width: 200px; height: 200px; background: #00f5d4; top: 40%; left: 40%; opacity: 0.3; animation: pulse 4s infinite; }
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.4; }
+    100% { transform: scale(1.1); opacity: 0.7; }
+}
+
+/* ===== GLASSMORPHISM ЭФФЕКТІСІ (Мөлдір шыны) ===== */
+.glass {
+    background: rgba(20, 20, 30, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(157, 78, 221, 0.4);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+header { text-align: center; padding: 25px; }
+header h1 { font-size: 28px; font-weight: 800; text-shadow: 0 0 15px rgba(0, 245, 212, 0.7); color: #fff; }
+
+.tab-content { display: none; padding: 20px; max-width: 800px; margin: 0 auto; }
+.tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== ФОРМАЛАР ЖӘНЕ БАТЫРМАЛАР ===== */
+input, select { 
+    padding: 14px; border-radius: 10px; border: 1px solid rgba(0, 245, 212, 0.3); 
+    background: rgba(0,0,0,0.5); color: #fff; font-size: 14px; width: 100%; outline: none; 
+    transition: 0.3s; 
+}
+input:focus { border-color: #00f5d4; box-shadow: 0 0 10px rgba(0, 245, 212, 0.4); }
+.input-group { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.input-group input { flex: 1; min-width: 120px; }
+
+.neon-btn { 
+    padding: 14px 20px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; 
+    transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; 
+}
+.neon-btn.pink { background: #ff006e; color: white; box-shadow: 0 0 15px rgba(255, 0, 110, 0.6); }
+.neon-btn.cyan { background: #00f5d4; color: #000; box-shadow: 0 0 15px rgba(0, 245, 212, 0.6); }
+.neon-btn.purple { background: #9d4edd; color: white; box-shadow: 0 0 15px rgba(157, 78, 221, 0.6); }
+.neon-btn:hover { transform: scale(1.05); }
+
+/* ===== КІТАП СӨРЕСІ (3D КАРТОЧКАЛАР) ===== */
+.books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 20px; perspective: 1000px; }
+.book-card { 
+    padding: 20px 15px; cursor: pointer; text-align: center; border-radius: 5px 15px 15px 5px;
+    background: linear-gradient(135deg, #2a2a35, #1a1a25);
+    border-left: 6px solid #00f5d4;
+    transition: 0.4s; transform-style: preserve-3d;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+}
+.book-card:hover { transform: rotateY(-15deg) translateX(10px); box-shadow: -10px 10px 20px rgba(0,245,212,0.2); border-color: #ff006e; }
+.book-title { font-weight: 700; font-size: 15px; margin-bottom: 5px; color: #fff; }
+.book-author { font-size: 11px; color: #aaa; margin-bottom: 15px; }
+.progress-bar-bg { background: rgba(0,0,0,0.5); height: 6px; border-radius: 3px; overflow: hidden; }
+.progress-bar-fill { background: #00f5d4; height: 100%; width: 0%; transition: 0.5s; box-shadow: 0 0 10px #00f5d4;}
+.book-percent { font-size: 12px; margin-top: 8px; color: #00f5d4; font-weight: bold; }
+
+/* ===== КІТАП АШЫЛҒАНДАҒЫ ТЕРЕЗЕ (МОДАЛЬ) ===== */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); justify-content: center; align-items: center; z-index: 100; }
+.modal-content { padding: 30px; width: 90%; max-width: 400px; text-align: center; position: relative; overflow: hidden; }
+
+/* ===== 3D КЕЙІПКЕР (ШАМ) АНИМАЦИЯСЫ ===== */
+.character-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    /* Шамның жарығын беретін көлеңке */
+    filter: drop-shadow(0 0 20px rgba(0, 245, 212, 0.4)); 
+}
+
+/* Кейіпкердің көзін жыпылықтату анимациясы */
+.pupil {
+    animation: blink 4s infinite;
+}
+@keyframes blink {
+    0%, 96%, 100% { transform: scaleY(1); }
+    98% { transform: scaleY(0.1); }
+}
+
+/* Кейіпкердің аузы (Таймер қосылғанда күлетін болады) */
+#lamp-character path[stroke="#111"] {
+    transition: 0.3s;
+}
+
+/* ===== ТАЙМЕР ===== */
+.timer-box { 
+    background: rgba(0,0,0,0.4); 
+    border: 1px solid #9d4edd; 
+    border-radius: 15px; 
+    padding: 15px; 
+    margin: 15px auto; 
+    width: 150px;
+    box-shadow: 0 0 15px rgba(157, 78, 221, 0.3);
+}
+.timer-text { font-size: 32px; font-weight: bold; color: #00f5d4; text-shadow: 0 0 10px rgba(0,245,212,0.8); }
+.timer-buttons { margin-top: 10px; }
+.modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
+
+/* ===== ЧАТ (КЛУБ) ===== */
+.chat-container { padding: 20px; display: flex; flex-direction: column; height: 60vh; }
+.chat-header select { margin-bottom: 15px; background: rgba(157, 78, 221, 0.2); border-color: #9d4edd; }
+.chat-box { flex: 1; overflow-y: auto; margin-bottom: 15px; display: flex; flex-direction: column; gap: 10px; }
+.message { padding: 10px 15px; border-radius: 15px; max-width: 80%; font-size: 14px; }
+.message.other { background: rgba(157, 78, 221, 0.2); align-self: flex-start; border: 1px solid rgba(157, 78, 221, 0.5); }
+.message.self { background: rgba(0, 245, 212, 0.2); align-self: flex-end; border: 1px solid rgba(0, 245, 212, 0.5); }
+.chat-input { display: flex; gap: 10px; }
+
+/* ===== МАРКЕТ (АЛМАСУ) ===== */
+.market-card { display: flex; padding: 15px; gap: 15px; align-items: center; margin-bottom: 10px; border-left: 3px solid #ff006e; }
+.market-card .book-cover { width: 50px; height: 70px; background: #333; border-radius: 5px; display: flex; justify-content: center; align-items: center; font-size: 10px; }
+.price { color: #00f5d4; font-weight: bold; }
+
+/* ===== ПРОФИЛЬ (МЕДАЛЬДАР) ===== */
+.profile-card { padding: 30px; text-align: center; }
+.avatar { font-size: 70px; color: #9d4edd; text-shadow: 0 0 20px #9d4edd; margin-bottom: 10px; }
+#total-pages-read { color: #00f5d4; font-size: 20px; font-weight: bold; }
+.badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+.badge { background: rgba(0, 245, 212, 0.1); border: 1px solid #00f5d4; color: #00f5d4; padding: 8px 15px; border-radius: 20px; font-size: 13px; box-shadow: 0 0 10px rgba(0,245,212,0.2); }
+.badge.locked { background: rgba(255,255,255,0.05); border: 1px solid #444; color: #666; box-shadow: none; }
+
+/* ===== ТӨМЕНГІ МӘЗІР ===== */
+.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; display: flex; justify-content: space-around; padding: 15px 0; z-index: 99; background: rgba(10, 10, 15, 0.9); backdrop-filter: blur(20px); border-top: 1px solid rgba(157, 78, 221, 0.3); border-radius: 0; }
+.nav-btn { background: none; color: rgba(255,255,255,0.5); display: flex; flex-direction: column; align-items: center; gap: 5px; border: none; cursor: pointer; transition: 0.3s; }
+.nav-btn i { font-size: 22px; }
+.nav-btn span { font-size: 12px; }
+.nav-btn.active { color: #00f5d4; text-shadow: 0 0 10px rgba(0,245,212,0.8); transform: translateY(-3px); }
